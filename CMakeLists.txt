@@ -3,4 +3,12 @@ project(LearningSFML)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(LearningSFML main.cpp)
+set(SOURCE_FILES main.cpp)
+add_executable(LearningSFML ${SOURCE_FILES})
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+find_package(SFML REQUIRED system window graphics network audio)
+if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(LearningSFML ${SFML_LIBRARIES})
+endif()
