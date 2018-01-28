@@ -1,0 +1,3 @@
+# SFMLSnippets
+
+Snippets of SFML
