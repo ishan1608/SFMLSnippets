@@ -5,7 +5,7 @@
 #include "Game.hpp"
 
 Game::Game()
-: window(sf::VideoMode(640, 480), "SFML Application")
+: window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player() {
     player.setRadius(40.f);
     player.setPosition(100.f, 100.f);
