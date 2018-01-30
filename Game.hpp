@@ -19,7 +19,8 @@ class Game {
 
     private:
         sf::RenderWindow window;
-        sf::CircleShape player;
+        sf::Texture eagleTexture;
+        sf::Sprite player;
 
         bool isMovingUp;
         bool isMovingDown;

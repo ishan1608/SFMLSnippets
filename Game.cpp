@@ -2,6 +2,7 @@
 // Created by ishan on 29/1/18.
 //
 
+#include <iostream>
 #include "Game.hpp"
 
 const float Game::playerSpeed = 100.f;
@@ -15,9 +16,11 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    player.setRadius(40.f);
+    if (!eagleTexture.loadFromFile("../media/textures/eagle.png")) {
+        std::cout << "Couldn't load eagle";
+    }
+    player.setTexture(eagleTexture);
     player.setPosition(100.f, 100.f);
-    player.setFillColor(sf::Color::Cyan);
 }
 
 void Game::run() {
