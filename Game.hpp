@@ -14,7 +14,7 @@ class Game {
 
     private:
         void processEvents();
-        void update();
+        void update(sf::Time);
         void render();
 
     private:
@@ -26,7 +26,9 @@ class Game {
         bool isMovingLeft;
         bool isMovingRight;
 
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+        float playerSpeed;
+
+        void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP

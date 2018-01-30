@@ -11,6 +11,7 @@ Game::Game()
 , isMovingDown(false)
 , isMovingLeft(false)
 , isMovingRight(false)
+, playerSpeed(100.f)
 {
     player.setRadius(40.f);
     player.setPosition(100.f, 100.f);
@@ -18,9 +19,11 @@ Game::Game()
 }
 
 void Game::run() {
+    sf::Clock clock;
     while (window.isOpen()) {
         processEvents();
-        update();
+        sf::Time deltaTime = clock.restart();
+        update(deltaTime);
         render();
     }
 }
@@ -33,7 +36,7 @@ void Game::processEvents() {
                 handlePlayerInput(event.key.code, true);
                 break;
             case sf::Event::KeyReleased:
-                handlePlayerInput(event.key.code, true);
+                handlePlayerInput(event.key.code, false);
                 break;
             case sf::Event::Closed:
                 window.close();
@@ -44,26 +47,26 @@ void Game::processEvents() {
     }
 }
 
-void Game::update() {
+void Game::update(sf::Time deltaTime) {
     sf::Vector2f movement(0.f, 0.f);
 
     if (isMovingUp) {
-        movement.y -= 1.f;
+        movement.y -= playerSpeed;
     }
 
     if (isMovingDown) {
-        movement.y += 1.f;
+        movement.y += playerSpeed;
     }
 
     if (isMovingLeft) {
-        movement.x -= 1.f;
+        movement.x -= playerSpeed;
     }
 
     if (isMovingRight) {
-        movement.x += 1.f;
+        movement.x += playerSpeed;
     }
 
-    player.move(movement);
+    player.move(movement * deltaTime.asSeconds());
 }
 
 void Game::render() {
