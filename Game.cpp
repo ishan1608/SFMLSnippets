@@ -5,6 +5,7 @@
 #include "Game.hpp"
 
 const float Game::playerSpeed = 100.f;
+const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
@@ -21,10 +22,15 @@ Game::Game()
 
 void Game::run() {
     sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen()) {
-        processEvents();
-        sf::Time deltaTime = clock.restart();
-        update(deltaTime);
+        processEvents();  // NOTE: Processing events even before timeSinceLasUpdate is less than TimePerFrame
+        timeSinceLastUpdate += clock.restart();
+        while (timeSinceLastUpdate > TimePerFrame) {
+            timeSinceLastUpdate -= TimePerFrame;
+            processEvents();
+            update(TimePerFrame);
+        }
         render();
     }
 }
