@@ -4,6 +4,8 @@
 
 #include "Game.hpp"
 
+const float Game::playerSpeed = 100.f;
+
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player()
@@ -11,7 +13,6 @@ Game::Game()
 , isMovingDown(false)
 , isMovingLeft(false)
 , isMovingRight(false)
-, playerSpeed(100.f)
 {
     player.setRadius(40.f);
     player.setPosition(100.f, 100.f);

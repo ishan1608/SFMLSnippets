@@ -26,7 +26,7 @@ class Game {
         bool isMovingLeft;
         bool isMovingRight;
 
-        float playerSpeed;
+        static const float playerSpeed;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 };
