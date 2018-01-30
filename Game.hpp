@@ -20,6 +20,13 @@ class Game {
     private:
         sf::RenderWindow window;
         sf::CircleShape player;
+
+        bool isMovingUp;
+        bool isMovingDown;
+        bool isMovingLeft;
+        bool isMovingRight;
+
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP
