@@ -16,7 +16,7 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    if (!eagleTexture.loadFromFile("../media/textures/eagle.png")) {
+    if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
         std::cout << "Couldn't load eagle";
     }
     player.setTexture(eagleTexture);
