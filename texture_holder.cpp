@@ -4,19 +4,19 @@
 
 #include "texture_holder.hpp"
 
-void TextureHolder::load(Textures::ID id, const std::string &filename) {
+void TextureHolder::load(Textures::TextureID id, const std::string &filename) {
     std::unique_ptr<sf::Texture> texture(new sf::Texture());
     texture->loadFromFile(filename);
 
     textureMap.insert(std::make_pair(id, std::move(texture)));
 }
 
-sf::Texture &TextureHolder::get(Textures::ID id) {
+sf::Texture &TextureHolder::get(Textures::TextureID id) {
     auto found = textureMap.find(id);
     return *found->second;
 }
 
-const sf::Texture &TextureHolder::get(Textures::ID id) const {
+const sf::Texture &TextureHolder::get(Textures::TextureID id) const {
     auto found = textureMap.find(id);
     return *found->second;
 }

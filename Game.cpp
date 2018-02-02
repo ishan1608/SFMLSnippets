@@ -16,9 +16,9 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    textures.load(Textures::Airplane, "media/textures/eagle.png");
+    textures.load(Textures::TextureID::Airplane, "media/textures/eagle.png");
 
-    player.setTexture(textures.get(Textures::Airplane));
+    player.setTexture(textures.get(Textures::TextureID::Airplane));
     player.setPosition(100.f, 100.f);
 }
 
