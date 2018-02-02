@@ -16,10 +16,9 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
-        std::cout << "Couldn't load eagle";
-    }
-    player.setTexture(eagleTexture);
+    textures.load(Textures::Airplane, "media/textures/eagle.png");
+
+    player.setTexture(textures.get(Textures::Airplane));
     player.setPosition(100.f, 100.f);
 }
 

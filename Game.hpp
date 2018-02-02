@@ -6,6 +6,7 @@
 #define SFMLSNIPPETS_GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include "texture_holder.hpp"
 
 class Game {
     public:
@@ -17,9 +18,7 @@ class Game {
         void update(sf::Time);
         void render();
 
-    private:
         sf::RenderWindow window;
-        sf::Texture eagleTexture;
         sf::Sprite player;
 
         bool isMovingUp;
@@ -29,6 +28,8 @@ class Game {
 
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
+
+        TextureHolder textures;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 };
