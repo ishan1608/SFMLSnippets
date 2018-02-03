@@ -17,6 +17,7 @@ void TextureHolder::load(Textures::TextureID id, const std::string &filename) {
 
 sf::Texture &TextureHolder::get(Textures::TextureID id) {
     auto found = textureMap.find(id);
+    assert(found != textureMap.end());
     return *found->second;
 }
 
