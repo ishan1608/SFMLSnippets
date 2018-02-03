@@ -2,6 +2,7 @@
 // Created by ishan on 3/2/18.
 //
 
+#include <cassert>
 #include "texture_holder.hpp"
 
 void TextureHolder::load(Textures::TextureID id, const std::string &filename) {
@@ -10,7 +11,8 @@ void TextureHolder::load(Textures::TextureID id, const std::string &filename) {
         throw std::runtime_error("TextureHolder::load - Failed to load " + filename);
     }
 
-    textureMap.insert(std::make_pair(id, std::move(texture)));
+    auto textureInserted = textureMap.insert(std::make_pair(id, std::move(texture)));
+    assert(textureInserted.second);
 }
 
 sf::Texture &TextureHolder::get(Textures::TextureID id) {
