@@ -32,6 +32,8 @@ class Game {
         TextureHolder textures;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+
+    bool init();
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP

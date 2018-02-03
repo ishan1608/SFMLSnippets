@@ -16,10 +16,9 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    textures.load(Textures::TextureID::Airplane, "media/textures/eagle.png");
-
-    player.setTexture(textures.get(Textures::TextureID::Airplane));
-    player.setPosition(100.f, 100.f);
+    if (!init()) {
+        throw std::runtime_error("Couldn't initialize the game.");
+    }
 }
 
 void Game::run() {
@@ -101,4 +100,17 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         default:
             break;
     }
+}
+
+bool Game::init() {
+    try {
+        textures.load(Textures::TextureID::Airplane, "media/textures/eagle.png");
+    } catch (std::runtime_error& error) {
+        std::cout << "Exception: " << error.what() << std::endl;
+        return false;
+    }
+
+    player.setTexture(textures.get(Textures::TextureID::Airplane));
+    player.setPosition(100.f, 100.f);
+    return true;
 }
