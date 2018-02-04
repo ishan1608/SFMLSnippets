@@ -13,9 +13,24 @@ void ResourceHolder<Resource, Identifier>::load(Identifier identifier, const std
     if (!resource->loadFromFile(fileName)) {
         throw std::runtime_error("ResourceHolder::load - Failed to load " + fileName);
     }
+    insertResource(identifier, resource);
+}
+
+template <typename Resource, typename Identifier>
+template <typename Parameter>
+void ResourceHolder<Resource, Identifier>::load(Identifier identifier, const std::string& fileName, const Parameter& secondParam) {
+    std::unique_ptr<Resource> resource(new Resource());
+    if (!resource->loadFromFile(fileName, secondParam)) {
+        throw std::runtime_error("ResourceHolder::load - Failed to load " + fileName);
+    }
+    insertResource(identifier, resource);
+}
+
+template <typename Resource, typename Identifier>
+void ResourceHolder::insertResource(Identifier identifier, std::unique_ptr<Resource> resource) {
     auto resourceInserted = resourcesMap.insert(std::make_pair(identifier, std::move(resource)));
     assert(resourceInserted.second);
-}
+};
 
 template <typename Resource, typename Identifier>
 Resource& ResourceHolder<Resource, Identifier>::get(Identifier id) {
