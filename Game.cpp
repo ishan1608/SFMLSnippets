@@ -21,6 +21,19 @@ Game::Game()
     }
 }
 
+bool Game::init() {
+    try {
+        textures.load(Textures::ID::Airplane, "media/textures/eagle.png");
+    } catch (std::runtime_error& error) {
+        std::cout << "Exception: " << error.what() << std::endl;
+        return false;
+    }
+
+    player.setTexture(textures.get(Textures::ID::Airplane));
+    player.setPosition(100.f, 100.f);
+    return true;
+}
+
 void Game::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -100,17 +113,4 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         default:
             break;
     }
-}
-
-bool Game::init() {
-    try {
-        textures.load(Textures::ID::Airplane, "media/textures/eagle.png");
-    } catch (std::runtime_error& error) {
-        std::cout << "Exception: " << error.what() << std::endl;
-        return false;
-    }
-
-    player.setTexture(textures.get(Textures::ID::Airplane));
-    player.setPosition(100.f, 100.f);
-    return true;
 }
