@@ -26,8 +26,7 @@ class ResourceHolder {
     private:
         std::map<Identifier, std::unique_ptr<Resource>> resourcesMap;
 
-    template<typename Identifier, typename Resource, typename Resource>
-    void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
+        void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
 };
 
 #include "resource_holder.inl"
