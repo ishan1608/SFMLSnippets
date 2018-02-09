@@ -26,7 +26,8 @@ class ResourceHolder {
     private:
         std::map<Identifier, std::unique_ptr<Resource>> resourcesMap;
 
-        void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
+// TODO fix the unique_ptr delete problem
+//        void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
 };
 
 #include "resource_holder.inl"
