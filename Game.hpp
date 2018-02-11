@@ -19,7 +19,8 @@ class Game {
         void render();
 
         sf::RenderWindow window;
-        sf::Sprite player;
+        sf::Sprite airplane;
+        sf::Sprite landscape;
 
         bool isMovingUp;
         bool isMovingDown;

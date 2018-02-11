@@ -10,7 +10,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
-, player()
+, airplane()
 , isMovingUp(false)
 , isMovingDown(false)
 , isMovingLeft(false)
@@ -24,13 +24,15 @@ Game::Game()
 bool Game::init() {
     try {
         textures.load(Textures::ID::Airplane, "media/textures/eagle.png");
+        textures.load(Textures::ID::Landscape, "media/textures/desert.png");
     } catch (std::runtime_error& error) {
         std::cout << "Exception: " << error.what() << std::endl;
         return false;
     }
 
-    player.setTexture(textures.get(Textures::ID::Airplane));
-    player.setPosition(100.f, 100.f);
+    airplane.setTexture(textures.get(Textures::ID::Airplane));
+    landscape.setTexture(textures.get(Textures::ID::Landscape));
+    airplane.setPosition(100.f, 100.f);
     return true;
 }
 
@@ -87,12 +89,15 @@ void Game::update(sf::Time deltaTime) {
         movement.x += playerSpeed;
     }
 
-    player.move(movement * deltaTime.asSeconds());
+    airplane.move(movement * deltaTime.asSeconds());
 }
 
 void Game::render() {
     window.clear(sf::Color::Black);
-    window.draw(player);
+    // NTOE: Airplane needs to be drawn after landscape
+    // If landscape is drawn after the airplane. The airplane will be hidden under landscape
+    window.draw(landscape);
+    window.draw(airplane);
     window.display();
 }
 
