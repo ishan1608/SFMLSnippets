@@ -29,3 +29,25 @@ SceneNode::SceneNodePointer SceneNode::detachChild(const SceneNode &sceneNode) {
     children.erase(foundNode);
     return result;
 }
+
+void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    // Transform the current SceneNode
+    states.transform *= getTransform();
+    // Draw the current SceneNode
+    drawCurrent(target, states);
+    // Draw all the children SceneNode(s)
+    drawChildren(target, states);
+}
+
+void SceneNode::drawChildren(sf::RenderTarget &target, sf::RenderStates states) const {
+    /*for (auto itr = children.begin(); itr != children.end(); ++itr) {
+        (*itr)->draw(target, states);
+    }*/
+    for (const auto &itr : children) {
+        itr->draw(target, states);
+    }
+}
+
+void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
+    // Blank implementation
+}
