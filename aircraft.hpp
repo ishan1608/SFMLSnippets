@@ -6,9 +6,10 @@
 #define SFMLSNIPPETS_AIRCRAFT_HPP
 
 
+#include <SFML/Graphics/Sprite.hpp>
 #include "entity.hpp"
 
-class Aircraft : public Entity {
+class Aircraft : public Entity {  // Inherits indirectly SceneNode
     public:
         enum class Type {
             Eagle,
@@ -17,8 +18,11 @@ class Aircraft : public Entity {
 
         explicit Aircraft(Type type);
 
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
     private:
         Type type;
+        sf::Sprite sprite;
 };
 
 

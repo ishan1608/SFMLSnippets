@@ -7,8 +7,9 @@
 
 
 #include <SFML/System.hpp>
+#include "scene_node.hpp"
 
-class Entity {
+class Entity : public SceneNode {
     public:
         void setVelocity(sf::Vector2f velocity);
         void setVelocity(float vx, float vy);
