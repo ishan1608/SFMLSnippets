@@ -10,6 +10,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include "entity.hpp"
+#include "resource_holder.hpp"
 
 class Aircraft : public Entity {  // Inherits indirectly SceneNode
     public:
@@ -18,7 +19,7 @@ class Aircraft : public Entity {  // Inherits indirectly SceneNode
             Raptor,
         };
 
-        explicit Aircraft(Type type);
+        explicit Aircraft(Type type, const TextureHolder& textures);
 
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 

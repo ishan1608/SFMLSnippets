@@ -6,11 +6,7 @@
 #define SFMLSNIPPETS_RESOURCE_HOLDER_HPP
 
 // Resources
-namespace Textures {
-    enum class ID {
-        Landscape, Airplane, Missile
-    };
-}
+#include <map>
 
 template <typename Resource, typename Identifier>
 class ResourceHolder {
@@ -28,6 +24,14 @@ class ResourceHolder {
 
         void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
 };
+
+namespace Textures {
+    enum class ID {
+        Eagle, Raptor, Desert
+    };
+}
+
+typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 
 #include "resource_holder.inl"
 
