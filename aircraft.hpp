@@ -7,6 +7,8 @@
 
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 #include "entity.hpp"
 
 class Aircraft : public Entity {  // Inherits indirectly SceneNode
