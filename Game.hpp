@@ -20,8 +20,6 @@ class Game {
         void render();
 
         sf::RenderWindow window;
-//        sf::Sprite airplane;
-//        sf::Sprite landscape;
 
         bool isMovingUp;
         bool isMovingDown;
@@ -31,7 +29,7 @@ class Game {
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
 
-//        ResourceHolder<sf::Texture, Textures::ID> textures;
+        TextureHolder textureHolder;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
