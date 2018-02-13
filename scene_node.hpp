@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/NonCopyable.hpp>
+#include <SFML/System/Time.hpp>
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
     public:
@@ -21,6 +22,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
         void attachChild(SceneNodePointer child);
         SceneNodePointer detachChild(const SceneNode& sceneNode);
 
+        void update(sf::Time dt);
+
     private:
         std::vector<SceneNodePointer> children;
         SceneNode* parent;
@@ -28,6 +31,9 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        virtual void updateCurrent(sf::Time dt);
+        void updateChildren(sf::Time dt);
 };
 
 

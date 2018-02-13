@@ -51,3 +51,18 @@ void SceneNode::drawChildren(sf::RenderTarget &target, sf::RenderStates states) 
 void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
     // Blank implementation
 }
+
+void SceneNode::update(sf::Time dt) {
+    updateCurrent(dt);
+    updateChildren(dt);
+}
+
+void SceneNode::updateCurrent(sf::Time dt) {
+    // Blank implementation
+}
+
+void SceneNode::updateChildren(sf::Time dt) {
+    for (const SceneNodePointer &child : children) {
+        child->update(dt);
+    }
+}
