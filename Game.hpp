@@ -9,13 +9,6 @@
 #include "resource_holder.hpp"
 #include "aircraft.hpp"
 
-enum class Layer
-{
-    Background,
-    Air,
-    LayerCount
-};
-
 class Game {
     public:
         Game();
