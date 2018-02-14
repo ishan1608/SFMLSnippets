@@ -23,12 +23,6 @@ class Game {
         sf::RenderWindow window;
         World world;
 
-        bool isMovingUp;
-        bool isMovingDown;
-        bool isMovingLeft;
-        bool isMovingRight;
-
-        static const float playerSpeed;
         static const sf::Time TimePerFrame;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);

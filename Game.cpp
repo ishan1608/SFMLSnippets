@@ -5,16 +5,11 @@
 #include <iostream>
 #include "Game.hpp"
 
-const float Game::playerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , world(window)
-, isMovingUp(false)
-, isMovingDown(false)
-, isMovingLeft(false)
-, isMovingRight(false)
 {
 }
 
@@ -53,24 +48,6 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time deltaTime) {
-    sf::Vector2f movement(0.f, 0.f);
-
-    if (isMovingUp) {
-        movement.y -= playerSpeed;
-    }
-
-    if (isMovingDown) {
-        movement.y += playerSpeed;
-    }
-
-    if (isMovingLeft) {
-        movement.x -= playerSpeed;
-    }
-
-    if (isMovingRight) {
-        movement.x += playerSpeed;
-    }
-
     world.update(deltaTime);
 }
 
@@ -83,20 +60,4 @@ void Game::render() {
 }
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    switch (key) {
-        case sf::Keyboard::W:
-            isMovingUp = isPressed;
-            break;
-        case sf::Keyboard::S:
-            isMovingDown = isPressed;
-            break;
-        case sf::Keyboard::A:
-            isMovingLeft = isPressed;
-            break;
-        case sf::Keyboard::D:
-            isMovingRight = isPressed;
-            break;
-        default:
-            break;
-    }
 }
