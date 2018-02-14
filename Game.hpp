@@ -26,6 +26,12 @@ class Game {
         static const sf::Time TimePerFrame;
 
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+        void updateStatistics(sf::Time elapsedTime);
+
+        sf::Font font;
+        sf::Text statisticsText;
+        sf::Time statisticsUpdateTime;
+        std::size_t statisticsNumFrames;
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP

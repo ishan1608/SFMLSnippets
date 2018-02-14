@@ -4,13 +4,22 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "string_helpers.hpp"
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , world(window)
+, font()
+, statisticsText()
+, statisticsUpdateTime()
+, statisticsNumFrames(0)
 {
+    font.loadFromFile("media/sansation.ttf");
+    statisticsText.setFont(font);
+    statisticsText.setPosition(5.f, 5.f);
+    statisticsText.setCharacterSize(10);
 }
 
 void Game::run() {
@@ -18,12 +27,14 @@ void Game::run() {
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen()) {
         processEvents();  // NOTE: Processing events even before timeSinceLasUpdate is less than TimePerFrame
-        timeSinceLastUpdate += clock.restart();
+        sf::Time elapsedTime = clock.restart();
+        timeSinceLastUpdate += elapsedTime;
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
             processEvents();
             update(TimePerFrame);
         }
+        updateStatistics(elapsedTime);
         render();
     }
 }
@@ -56,8 +67,23 @@ void Game::render() {
     world.draw();
 
     window.setView(window.getDefaultView());
+    window.draw(statisticsText);
     window.display();
 }
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+}
+
+void Game::updateStatistics(sf::Time elapsedTime) {
+    statisticsUpdateTime += elapsedTime;
+    statisticsNumFrames += 1;
+
+    if (statisticsUpdateTime >= sf::seconds(1.0f)) {
+        statisticsText.setString(
+                "Frames / Second = " + toString(statisticsNumFrames) + "\n" +
+                "Time / Update = " + toString(statisticsUpdateTime.asMicroseconds() / statisticsNumFrames) + "us");
+
+        statisticsUpdateTime -= sf::seconds(1.0f);
+        statisticsNumFrames = 0;
+    }
 }

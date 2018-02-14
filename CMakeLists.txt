@@ -3,7 +3,15 @@ project(SFMLSnippets)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp Game.hpp Game.cpp resource_holder.hpp resource_holder.inl entity.cpp entity.hpp aircraft.cpp aircraft.hpp scene_node.cpp scene_node.hpp sprite_node.cpp sprite_node.hpp world.cpp world.hpp resource_identifiers.hpp)
+set(SOURCE_FILES main.cpp Game.hpp Game.cpp
+        resource_holder.hpp resource_holder.inl
+        entity.cpp entity.hpp
+        aircraft.cpp aircraft.hpp
+        scene_node.cpp scene_node.hpp
+        sprite_node.cpp sprite_node.hpp
+        world.cpp world.hpp
+        resource_identifiers.hpp
+        string_helpers.inl string_helpers.hpp)
 add_executable(SFMLSnippets ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
