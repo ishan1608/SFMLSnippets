@@ -24,6 +24,9 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 
         void update(sf::Time dt);
 
+        sf::Transform getWorldTransform() const;
+        sf::Vector2f getWorldPosition() const;
+
     private:
         std::vector<SceneNodePointer> children;
         SceneNode* parent;
