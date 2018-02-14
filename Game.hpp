@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "resource_holder.hpp"
 #include "aircraft.hpp"
+#include "world.hpp"
 
 class Game {
     public:
@@ -20,6 +21,7 @@ class Game {
         void render();
 
         sf::RenderWindow window;
+        World world;
 
         bool isMovingUp;
         bool isMovingDown;

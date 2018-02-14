@@ -10,6 +10,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
+, world(window)
 , isMovingUp(false)
 , isMovingDown(false)
 , isMovingLeft(false)
@@ -75,9 +76,9 @@ void Game::update(sf::Time deltaTime) {
 
 void Game::render() {
     window.clear(sf::Color::Black);
-//    Aircraft airplane(Aircraft::Type::Eagle, textureHolder);
-//    airplane.setPosition(100.f, 100.f);
-//    window.draw(airplane);
+    world.draw();
+
+    window.setView(window.getDefaultView());
     window.display();
 }
 
