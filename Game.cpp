@@ -71,7 +71,7 @@ void Game::update(sf::Time deltaTime) {
         movement.x += playerSpeed;
     }
 
-//    airplane.move(movement * deltaTime.asSeconds());
+    world.update(deltaTime);
 }
 
 void Game::render() {
