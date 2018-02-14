@@ -3,6 +3,7 @@
 //
 
 #include "world.hpp"
+#include "sprite_node.hpp"
 #include <SFML/Graphics/Texture.hpp>
 
 World::World(sf::RenderWindow &window)
@@ -33,5 +34,21 @@ void World::loadTextures() {
 }
 
 void World::buildScene() {
-    // Blank implementation
+    // Initialize the different layers
+    for (std::size_t i = 0; i < LayerCount ; i++) {
+        SceneNode::SceneNodePointer layer(new SceneNode());
+        sceneLayers[i] = layer.get();
+
+        sceneGraph.attachChild(std::move(layer));
+    }
+
+    // Prepare the tiled background
+    sf::Texture& texture = textures.get(Textures::ID::Desert);
+    sf::IntRect textureRect(worldBounds);
+    texture.setRepeated(true);
+
+    // Add the background sprite to the scene
+    std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
+    backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
+    sceneLayers[Background]->attachChild(std::move(backgroundSprite));
 }
