@@ -3,6 +3,7 @@
 //
 
 #include "aircraft.hpp"
+#include "resource_holder.hpp"
 
 Textures::ID toTextureID(Aircraft::Type type) {
     switch (type) {

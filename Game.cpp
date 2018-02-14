@@ -15,21 +15,6 @@ Game::Game()
 , isMovingLeft(false)
 , isMovingRight(false)
 {
-    if (!init()) {
-        throw std::runtime_error("Couldn't initialize the game.");
-    }
-}
-
-bool Game::init() {
-    try {
-        textureHolder.load(Textures::ID::Eagle, "media/textures/eagle.png");
-        textureHolder.load(Textures::ID::Raptor, "media/textures/raptor.png");
-        textureHolder.load(Textures::ID::Desert, "media/textures/desert.png");
-    } catch (std::runtime_error& error) {
-        std::cout << "Exception: " << error.what() << std::endl;
-        return false;
-    }
-    return true;
 }
 
 void Game::run() {

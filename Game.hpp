@@ -29,11 +29,7 @@ class Game {
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
 
-        TextureHolder textureHolder;
-
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-
-    bool init();
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP

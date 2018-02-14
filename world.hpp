@@ -8,9 +8,10 @@
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "resource_holder.hpp"
 #include "scene_node.hpp"
 #include "aircraft.hpp"
+#include "resource_identifiers.hpp"
+#include "resource_holder.hpp"
 
 class World : private sf::NonCopyable {
     public:
@@ -40,6 +41,5 @@ class World : private sf::NonCopyable {
         float scrollSpeed;
         Aircraft* playerAircraft;
 };
-
 
 #endif //SFMLSNIPPETS_WORLD_HPP

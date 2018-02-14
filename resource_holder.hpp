@@ -25,14 +25,6 @@ class ResourceHolder {
         void insertResource(Identifier identifier, std::unique_ptr<Resource> resource);
 };
 
-namespace Textures {
-    enum class ID {
-        Eagle, Raptor, Desert
-    };
-}
-
-typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
-
 #include "resource_holder.inl"
 
 #endif //SFMLSNIPPETS_RESOURCE_HOLDER_HPP
