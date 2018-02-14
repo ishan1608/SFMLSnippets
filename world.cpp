@@ -51,4 +51,20 @@ void World::buildScene() {
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
     backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
     sceneLayers[Background]->attachChild(std::move(backgroundSprite));
+
+    // Add player's aircraft
+    std::unique_ptr<Aircraft> leader(new Aircraft(Aircraft::Type::Eagle, textures));
+    playerAircraft = leader.get();
+    playerAircraft->setPosition(spawnPosition);
+    playerAircraft->setVelocity(40.f, scrollSpeed);
+    sceneLayers[Air]->attachChild(std::move(leader));
+
+    // Add two escorting aircraft(s), placed relatively to the main plane
+    std::unique_ptr<Aircraft> leftEscort(new Aircraft(Aircraft::Type::Raptor, textures));
+    leftEscort->setPosition(-80.f, 50.f);
+    playerAircraft->attachChild(std::move(leftEscort));
+
+    std::unique_ptr<Aircraft> rightEscort(new Aircraft(Aircraft::Type::Raptor, textures));
+    rightEscort->setPosition(80.f, 50.f);
+    playerAircraft->attachChild(std::move(rightEscort));
 }
