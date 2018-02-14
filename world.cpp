@@ -68,3 +68,23 @@ void World::buildScene() {
     rightEscort->setPosition(80.f, 50.f);
     playerAircraft->attachChild(std::move(rightEscort));
 }
+
+void World::draw() {
+    window.setView(worldView);
+    window.draw(sceneGraph);
+}
+
+void World::update(sf::Time dt) {
+    worldView.move(0.f, scrollSpeed * dt.asSeconds());
+
+    sf::Vector2f position = playerAircraft->getPosition();
+    sf::Vector2f velocity = playerAircraft->getVelocity();
+
+    if ((position.x <= worldBounds.left + 150) ||
+        (position.x >= worldBounds.left + worldBounds.width - 150)) {
+        velocity.x = -velocity.x;
+        playerAircraft->setVelocity(velocity);
+    }
+
+    sceneGraph.update(dt);
+}
