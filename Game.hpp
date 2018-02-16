@@ -22,15 +22,8 @@ class Game {
         sf::Texture eagleTexture;
         sf::Sprite player;
 
-        bool isMovingUp;
-        bool isMovingDown;
-        bool isMovingLeft;
-        bool isMovingRight;
-
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
-
-        void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 };
 
 #endif //SFMLSNIPPETS_GAME_HPP

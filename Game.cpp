@@ -11,10 +11,6 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player()
-, isMovingUp(false)
-, isMovingDown(false)
-, isMovingLeft(false)
-, isMovingRight(false)
 {
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
         std::cout << "Couldn't load eagle";
@@ -42,12 +38,6 @@ void Game::processEvents() {
     sf::Event event;
     while (window.pollEvent(event)) {
         switch (event.type) {
-            case sf::Event::KeyPressed:
-                handlePlayerInput(event.key.code, true);
-                break;
-            case sf::Event::KeyReleased:
-                handlePlayerInput(event.key.code, false);
-                break;
             case sf::Event::Closed:
                 window.close();
                 break;
@@ -60,19 +50,19 @@ void Game::processEvents() {
 void Game::update(sf::Time deltaTime) {
     sf::Vector2f movement(0.f, 0.f);
 
-    if (isMovingUp) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         movement.y -= playerSpeed;
     }
 
-    if (isMovingDown) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         movement.y += playerSpeed;
     }
 
-    if (isMovingLeft) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         movement.x -= playerSpeed;
     }
 
-    if (isMovingRight) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         movement.x += playerSpeed;
     }
 
@@ -83,23 +73,4 @@ void Game::render() {
     window.clear(sf::Color::Black);
     window.draw(player);
     window.display();
-}
-
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    switch (key) {
-        case sf::Keyboard::W:
-            isMovingUp = isPressed;
-            break;
-        case sf::Keyboard::S:
-            isMovingDown = isPressed;
-            break;
-        case sf::Keyboard::A:
-            isMovingLeft = isPressed;
-            break;
-        case sf::Keyboard::D:
-            isMovingRight = isPressed;
-            break;
-        default:
-            break;
-    }
 }
