@@ -50,19 +50,12 @@ void Game::processEvents() {
 void Game::update(sf::Time deltaTime) {
     sf::Vector2f movement(0.f, 0.f);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        movement.y -= playerSpeed;
-    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        movement.y += playerSpeed;
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         movement.x -= playerSpeed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         movement.x += playerSpeed;
     }
 
