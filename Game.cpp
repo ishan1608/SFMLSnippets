@@ -11,6 +11,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player()
+, moveRight(false)
 {
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
         std::cout << "Couldn't load eagle";
@@ -41,6 +42,15 @@ void Game::processEvents() {
             case sf::Event::Closed:
                 window.close();
                 break;
+            case sf::Event::MouseButtonPressed:
+                if (event.mouseButton.button == sf::Mouse::Button::Right) {
+                    moveRight = true;
+                }
+                break;
+            case sf::Event::MouseButtonReleased:
+                if (event.mouseButton.button == sf::Mouse::Button::Right) {
+                    moveRight = false;
+                }
             default:
                 break;
         }
@@ -55,7 +65,7 @@ void Game::update(sf::Time deltaTime) {
         movement.x -= playerSpeed;
     }
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+    if (moveRight) {
         movement.x += playerSpeed;
     }
 

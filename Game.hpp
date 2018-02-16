@@ -22,6 +22,8 @@ class Game {
         sf::Texture eagleTexture;
         sf::Sprite player;
 
+        bool moveRight;
+
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
 };
