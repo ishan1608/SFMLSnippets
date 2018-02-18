@@ -12,6 +12,7 @@ Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player()
 , moveRight(false)
+, isPaused(false)
 , windowCenter(window.getSize() / 2u)
 {
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
@@ -30,7 +31,9 @@ void Game::run() {
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
             processEvents();
-            update(TimePerFrame);
+            if (!isPaused) {
+                update(TimePerFrame);
+            }
         }
         render();
     }
@@ -42,6 +45,12 @@ void Game::processEvents() {
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
+                break;
+            case sf::Event::GainedFocus:
+                isPaused = false;
+                break;
+            case sf::Event::LostFocus:
+                isPaused = true;
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Button::Right) {

@@ -25,6 +25,7 @@ class Game {
         sf::Vector2i delta;
 
         bool moveRight;
+        bool isPaused;
 
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
