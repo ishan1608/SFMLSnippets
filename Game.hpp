@@ -21,7 +21,7 @@ class Game {
         sf::RenderWindow window;
         sf::Texture eagleTexture;
         sf::Sprite player;
-        sf::Vector2i mouseLastPosition;
+        sf::Vector2i windowCenter;
         sf::Vector2i delta;
 
         bool moveRight;

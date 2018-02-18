@@ -12,8 +12,8 @@ Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , player()
 , moveRight(false)
+, windowCenter(window.getSize() / 2u)
 {
-    mouseLastPosition = sf::Mouse::getPosition(window);
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
         std::cout << "Couldn't load eagle";
     }
@@ -55,9 +55,11 @@ void Game::processEvents() {
                 break;
             case sf::Event::MouseMoved: {
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-                sf::Vector2i delta = mousePosition - mouseLastPosition;
-                this->mouseLastPosition = mousePosition;
-                this->delta = delta;
+                sf::Vector2i delta = windowCenter - mousePosition;
+                this->delta += delta;
+                if (delta.x != 0 || delta.y != 0) {
+                    sf::Mouse::setPosition(windowCenter, window);
+                }
                 break;
             }
             default:
