@@ -13,6 +13,7 @@ Game::Game()
 , player()
 , moveRight(false)
 {
+    mouseLastPosition = sf::Mouse::getPosition(window);
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
         std::cout << "Couldn't load eagle";
     }
@@ -51,6 +52,14 @@ void Game::processEvents() {
                 if (event.mouseButton.button == sf::Mouse::Button::Right) {
                     moveRight = false;
                 }
+                break;
+            case sf::Event::MouseMoved: {
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                sf::Vector2i delta = mousePosition - mouseLastPosition;
+                this->mouseLastPosition = mousePosition;
+                this->delta = delta;
+                break;
+            }
             default:
                 break;
         }
@@ -68,6 +77,11 @@ void Game::update(sf::Time deltaTime) {
     if (moveRight) {
         movement.x += playerSpeed;
     }
+
+    // Use delta in player movement and reset delta
+    movement.x += delta.x * 10;
+    movement.y += delta.y * 10;
+    delta = sf::Vector2i();
 
     player.move(movement * deltaTime.asSeconds());
 }
