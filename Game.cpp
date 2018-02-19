@@ -13,6 +13,7 @@ Game::Game()
 , player()
 , moveRight(false)
 , isPaused(false)
+, mouseMovementPaused(false)
 , windowCenter(window.getSize() / 2u)
 {
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
@@ -63,14 +64,19 @@ void Game::processEvents() {
                 }
                 break;
             case sf::Event::MouseMoved: {
-                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-                sf::Vector2i delta = windowCenter - mousePosition;
-                this->delta += delta;
-                if (delta.x != 0 || delta.y != 0) {
-                    sf::Mouse::setPosition(windowCenter, window);
+                if (!mouseMovementPaused) {
+                    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                    sf::Vector2i delta = windowCenter - mousePosition;
+                    this->delta += delta;
+                    if (delta.x != 0 || delta.y != 0) {
+                        sf::Mouse::setPosition(windowCenter, window);
+                    }
                 }
                 break;
             }
+            case sf::Event::KeyPressed:
+                mouseMovementPaused = !mouseMovementPaused;
+                break;
             default:
                 break;
         }
@@ -89,10 +95,12 @@ void Game::update(sf::Time deltaTime) {
         movement.x += playerSpeed;
     }
 
-    // Use delta in player movement and reset delta
-    movement.x += delta.x * 10;
-    movement.y += delta.y * 10;
-    delta = sf::Vector2i();
+    if (!mouseMovementPaused) {
+        // Use delta in player movement and reset delta
+        movement.x += delta.x * 10;
+        movement.y += delta.y * 10;
+        delta = sf::Vector2i();
+    }
 
     // Is joystick #0 connected?
     bool joystick0Connected = sf::Joystick::isConnected(0);
