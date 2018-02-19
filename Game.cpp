@@ -104,22 +104,12 @@ void Game::update(sf::Time deltaTime) {
 
     // Is joystick #0 connected?
     bool joystick0Connected = sf::Joystick::isConnected(0);
-    std::cout << "joystick 0 connected " << joystick0Connected << std::endl;
     if (joystick0Connected) {
-        sf::Joystick::Identification identification = sf::Joystick::getIdentification(0);
-        std::cout << "joystick 0 name " << static_cast<std::string>(identification.name) << std::endl;
-        // How many buttons does joystick #0 support?
-        unsigned int buttons = sf::Joystick::getButtonCount(0);
-        std::cout << "joystick 0 buttons " << buttons << std::endl;
-        // Does joystick #0 define a X axis?
-        bool hasX = sf::Joystick::hasAxis(0, sf::Joystick::X);
-        std::cout << "joystick 0 has X axis " << hasX << std::endl;
-        // Is button #2 pressed on joystick #0?
-        bool button2Pressed = sf::Joystick::isButtonPressed(0, 2);
-        std::cout << "joystick 0 button 2 pressed " << button2Pressed << std::endl;
-        // What's the current position of the Y axis on joystick #0?
+        // What's the current position of the X and Y axis on joystick #0?
         float positionYAxis = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
-        std::cout << "joystick 0 Y axis position " << positionYAxis << std::endl;
+        float positionXAxis = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+        movement.x += labs(static_cast<long>(positionXAxis)) >= 6 ? (positionXAxis < 0 ? (positionXAxis + 6) : (positionXAxis - 6)) / 94 * 100 : 0;
+        movement.y += labs(static_cast<long>(positionYAxis)) >= 6 ? (positionYAxis < 0 ? (positionYAxis + 6) : (positionYAxis - 6)) / 94 * 100 : 0;
     }
 
     player.move(movement * deltaTime.asSeconds());
