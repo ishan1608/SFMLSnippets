@@ -13,7 +13,7 @@ Game::Game()
 , player()
 , moveRight(false)
 , isPaused(false)
-, mouseMovementPaused(false)
+, mouseMovementCaptured(false)
 , windowCenter(window.getSize() / 2u)
 {
     if (!eagleTexture.loadFromFile("media/textures/eagle.png")) {
@@ -64,7 +64,7 @@ void Game::processEvents() {
                 }
                 break;
             case sf::Event::MouseMoved: {
-                if (!mouseMovementPaused) {
+                if (mouseMovementCaptured) {
                     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                     sf::Vector2i delta = windowCenter - mousePosition;
                     this->delta += delta;
@@ -75,7 +75,7 @@ void Game::processEvents() {
                 break;
             }
             case sf::Event::KeyPressed:
-                mouseMovementPaused = !mouseMovementPaused;
+                mouseMovementCaptured = !mouseMovementCaptured;
                 break;
             default:
                 break;
@@ -95,7 +95,7 @@ void Game::update(sf::Time deltaTime) {
         movement.x += playerSpeed;
     }
 
-    if (!mouseMovementPaused) {
+    if (mouseMovementCaptured) {
         // Use delta in player movement and reset delta
         movement.x += delta.x * 10;
         movement.y += delta.y * 10;

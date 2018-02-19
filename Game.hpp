@@ -26,7 +26,7 @@ class Game {
 
         bool moveRight;
         bool isPaused;
-        bool mouseMovementPaused;
+        bool mouseMovementCaptured;
 
         static const float playerSpeed;
         static const sf::Time TimePerFrame;
