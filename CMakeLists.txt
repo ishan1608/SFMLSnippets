@@ -11,7 +11,7 @@ set(SOURCE_FILES main.cpp Game.hpp Game.cpp
         sprite_node.cpp sprite_node.hpp
         world.cpp world.hpp
         resource_identifiers.hpp
-        string_helpers.inl string_helpers.hpp)
+        string_helpers.inl string_helpers.hpp command.cpp command.hpp category.cpp category.hpp)
 add_executable(SFMLSnippets ${SOURCE_FILES})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

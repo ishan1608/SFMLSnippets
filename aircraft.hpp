@@ -23,7 +23,9 @@ class Aircraft : public Entity {  // Inherits indirectly SceneNode
 
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    private:
+        virtual unsigned int getCategory() const;
+
+private:
         Type type;
         sf::Sprite sprite;
 };

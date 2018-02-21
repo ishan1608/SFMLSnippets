@@ -12,6 +12,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
+#include "command.hpp"
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
     public:
@@ -26,6 +27,9 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 
         sf::Transform getWorldTransform() const;
         sf::Vector2f getWorldPosition() const;
+
+        void onCommand(const Command& command, sf::Time dt);
+        virtual unsigned int getCategory() const;
 
     private:
         std::vector<SceneNodePointer> children;

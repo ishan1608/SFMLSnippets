@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <cassert>
 #include "scene_node.hpp"
+#include "category.hpp"
+
+#include "command.hpp"
 
 SceneNode::SceneNode()
 : children(),
@@ -77,4 +80,19 @@ sf::Transform SceneNode::getWorldTransform() const {
 
 sf::Vector2f SceneNode::getWorldPosition() const {
     return getWorldTransform() * sf::Vector2f();
+}
+
+void SceneNode::onCommand(const Command& command, sf::Time dt) {
+    // Execute action on this if this belongs to the same category as command
+    if (command.category & this->getCategory()) {
+        command.action(*this, dt);
+    }
+
+    for (SceneNodePointer& child : children) {
+        child->onCommand(command, dt);
+    }
+}
+
+unsigned int SceneNode::getCategory() const {
+    return static_cast<unsigned int>(Category::Type::Scene);
 }

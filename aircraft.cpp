@@ -4,6 +4,7 @@
 
 #include "aircraft.hpp"
 #include "resource_holder.hpp"
+#include "category.hpp"
 
 Textures::ID toTextureID(Aircraft::Type type) {
     switch (type) {
@@ -23,4 +24,14 @@ Aircraft::Aircraft(Aircraft::Type type, const TextureHolder& textures)
 
 void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
+}
+
+unsigned int Aircraft::getCategory() const {
+    switch (this->type) {
+        case Aircraft::Type::Eagle:
+            return static_cast<unsigned int>(Category::Type::PlayerAircraft);
+        default:
+            return static_cast<unsigned int>(Category::Type::EnemyAircraft);
+    }
+    return SceneNode::getCategory();
 }
