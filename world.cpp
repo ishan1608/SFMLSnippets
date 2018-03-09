@@ -86,5 +86,15 @@ void World::update(sf::Time dt) {
         playerAircraft->setVelocity(velocity);
     }
 
+    // Forward commands to the scene graph
+    while (!commandQueue.isEmpty()) {
+        sceneGraph.onCommand(commandQueue.pop(), dt);
+    }
+
+    // Regular update step
     sceneGraph.update(dt);
+}
+
+CommandQueue& World::getCommandQueue() {
+    return commandQueue;
 }

@@ -12,12 +12,15 @@
 #include "aircraft.hpp"
 #include "resource_identifiers.hpp"
 #include "resource_holder.hpp"
+#include "command_queue.hpp"
 
 class World : private sf::NonCopyable {
     public:
         explicit World(sf::RenderWindow& window);
         void update(sf::Time dt);
         void draw();
+
+        CommandQueue& getCommandQueue();
 
     private:
         void loadTextures();
@@ -40,6 +43,8 @@ class World : private sf::NonCopyable {
         sf::Vector2f spawnPosition;
         float scrollSpeed;
         Aircraft* playerAircraft;
+
+        CommandQueue commandQueue;
 };
 
 #endif //SFMLSNIPPETS_WORLD_HPP
