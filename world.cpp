@@ -9,6 +9,9 @@
 World::World(sf::RenderWindow &window)
 : window(window)
 , worldView(window.getDefaultView())
+,textures()
+,sceneGraph()
+,sceneLayers()
 , worldBounds(
     0.f,                    // left
     0.f,                    // top
@@ -24,6 +27,7 @@ World::World(sf::RenderWindow &window)
     loadTextures();
     buildScene();
 
+    // Prepare the view
     worldView.setCenter(spawnPosition);
 }
 
@@ -75,7 +79,10 @@ void World::draw() {
 }
 
 void World::update(sf::Time dt) {
+    // Scroll the world
     worldView.move(0.f, scrollSpeed * dt.asSeconds());
+//    // Reset player velocity
+//    playerAircraft->setVelocity(0.f, 0.f);
 
     sf::Vector2f position = playerAircraft->getPosition();
     sf::Vector2f velocity = playerAircraft->getVelocity();

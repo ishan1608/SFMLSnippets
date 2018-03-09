@@ -9,6 +9,7 @@
 #include "resource_holder.hpp"
 #include "aircraft.hpp"
 #include "world.hpp"
+#include "player.hpp"
 
 class Game {
     public:
@@ -16,17 +17,16 @@ class Game {
         void run();
 
     private:
-        void processEvents();
+        void processInput();
         void update(sf::Time);
         void render();
-
-        sf::RenderWindow window;
-        World world;
+        void updateStatistics(sf::Time elapsedTime);
 
         static const sf::Time TimePerFrame;
 
-        void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-        void updateStatistics(sf::Time elapsedTime);
+        sf::RenderWindow window;
+        World world;
+        Player player;
 
         sf::Font font;
         sf::Text statisticsText;

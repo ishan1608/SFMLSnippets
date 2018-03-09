@@ -36,15 +36,15 @@ class World : private sf::NonCopyable {
         sf::RenderWindow& window;
         sf::View worldView;
         TextureHolder textures;
+
         SceneNode sceneGraph;
         std::array<SceneNode*, Layer::LayerCount> sceneLayers;
+        CommandQueue commandQueue;
 
         sf::FloatRect worldBounds;
         sf::Vector2f spawnPosition;
         float scrollSpeed;
         Aircraft* playerAircraft;
-
-        CommandQueue commandQueue;
 };
 
 #endif //SFMLSNIPPETS_WORLD_HPP

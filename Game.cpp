@@ -11,6 +11,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 Game::Game()
 : window(sf::VideoMode(640, 480), "Shoot-em-up")
 , world(window)
+, player()
 , font()
 , statisticsText()
 , statisticsUpdateTime()
@@ -26,12 +27,12 @@ void Game::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen()) {
-        processEvents();  // NOTE: Processing events even before timeSinceLasUpdate is less than TimePerFrame
+        processInput();  // NOTE: Processing events even before timeSinceLasUpdate is less than TimePerFrame
         sf::Time elapsedTime = clock.restart();
         timeSinceLastUpdate += elapsedTime;
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
-            processEvents();
+            processInput();
             update(TimePerFrame);
         }
         updateStatistics(elapsedTime);
@@ -39,23 +40,34 @@ void Game::run() {
     }
 }
 
-void Game::processEvents() {
+void Game::processInput() {
+    CommandQueue& commands = world.getCommandQueue();
+
     sf::Event event;
     while (window.pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::KeyPressed:
-                handlePlayerInput(event.key.code, true);
-                break;
-            case sf::Event::KeyReleased:
-                handlePlayerInput(event.key.code, false);
-                break;
-            case sf::Event::Closed:
-                window.close();
-                break;
-            default:
-                break;
+
+        player.handleEvent(event, commands);
+
+        if (event.type == sf::Event::Closed) {
+            window.close();
         }
+
+//        switch (event.type) {
+//            case sf::Event::KeyPressed:
+//                handlePlayerInput(event.key.code, true);
+//                break;
+//            case sf::Event::KeyReleased:
+//                handlePlayerInput(event.key.code, false);
+//                break;
+//            case sf::Event::Closed:
+//                window.close();
+//                break;
+//            default:
+//                break;
+//        }
     }
+
+    player.handleRealTimeInput(commands);
 }
 
 void Game::update(sf::Time deltaTime) {
@@ -71,8 +83,8 @@ void Game::render() {
     window.display();
 }
 
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-}
+//void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+//}
 
 void Game::updateStatistics(sf::Time elapsedTime) {
     statisticsUpdateTime += elapsedTime;
