@@ -9,9 +9,9 @@
 World::World(sf::RenderWindow &window)
 : window(window)
 , worldView(window.getDefaultView())
-,textures()
-,sceneGraph()
-,sceneLayers()
+, textures()
+, sceneGraph()
+, sceneLayers()
 , worldBounds(
     0.f,                    // left
     0.f,                    // top
