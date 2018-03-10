@@ -33,10 +33,28 @@ void Player::handleEvent(const sf::Event &event, CommandQueue &commands) {
 void Player::handleRealTimeInput(CommandQueue& commands) {
     const float playerSpeed = 30.f;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         Command moveLeft;
         moveLeft.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
         moveLeft.action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
         commands.push(moveLeft);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        Command moveRight;
+        moveRight.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
+        moveRight.action = derivedAction<Aircraft>(AircraftMover(playerSpeed, 0.f));
+        commands.push(moveRight);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        Command moveUp;
+        moveUp.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
+        moveUp.action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
+        commands.push(moveUp);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        Command moveDown;
+        moveDown.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
+        moveDown.action = derivedAction<Aircraft>(AircraftMover(0.f, playerSpeed));
+        commands.push(moveDown);
     }
 }
