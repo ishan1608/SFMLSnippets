@@ -26,6 +26,9 @@ class World : private sf::NonCopyable {
         void loadTextures();
         void buildScene();
 
+        void adaptPlayerVelocity();
+        void adaptPlayerPosition();
+
         enum Layer : uint  //  Underlying type will be unsigned int
         {
             Background,

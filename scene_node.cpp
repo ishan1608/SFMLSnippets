@@ -4,10 +4,9 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 #include "scene_node.hpp"
 #include "category.hpp"
-
-#include "command.hpp"
 
 SceneNode::SceneNode()
 : children(),

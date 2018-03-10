@@ -30,7 +30,7 @@ void Player::handleEvent(const sf::Event &event, CommandQueue &commands) {
     }
 }
 
-void Player::handleRealTimeInput(CommandQueue &commands) {
+void Player::handleRealTimeInput(CommandQueue& commands) {
     const float playerSpeed = 30.f;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {

@@ -5,6 +5,8 @@
 #include "world.hpp"
 #include "sprite_node.hpp"
 #include <SFML/Graphics/Texture.hpp>
+#include <cmath>
+#include <iostream>
 
 World::World(sf::RenderWindow &window)
 : window(window)
@@ -81,17 +83,11 @@ void World::draw() {
 void World::update(sf::Time dt) {
     // Scroll the world
     worldView.move(0.f, scrollSpeed * dt.asSeconds());
-//    // Reset player velocity
-//    playerAircraft->setVelocity(0.f, 0.f);
+    // Reset player velocity
+    playerAircraft->setVelocity(0.f, 0.f);
 
-    sf::Vector2f position = playerAircraft->getPosition();
-    sf::Vector2f velocity = playerAircraft->getVelocity();
-
-    if ((position.x <= worldBounds.left + 150) ||
-        (position.x >= worldBounds.left + worldBounds.width - 150)) {
-        velocity.x = -velocity.x;
-        playerAircraft->setVelocity(velocity);
-    }
+    // Adapt player velocity
+    adaptPlayerVelocity();
 
     // Forward commands to the scene graph
     while (!commandQueue.isEmpty()) {
@@ -100,8 +96,43 @@ void World::update(sf::Time dt) {
 
     // Regular update step
     sceneGraph.update(dt);
+
+    // Adapt player position
+    adaptPlayerPosition();
 }
 
 CommandQueue& World::getCommandQueue() {
     return commandQueue;
+}
+
+void World::adaptPlayerVelocity() {
+    sf::Vector2f velocity = playerAircraft->getVelocity();
+
+    // If moving diagonally reduce velocity to always have same velocity
+    if (velocity.x != 0.f && velocity.y != 0.f) {
+        playerAircraft->setVelocity(velocity / std::sqrt(2.f));
+    }
+
+    // Add scrolling velocity
+    playerAircraft->accelerate(0.f, scrollSpeed);
+}
+
+void World::adaptPlayerPosition() {
+    sf::FloatRect viewBounds(
+            worldView.getCenter() - worldView.getSize() / 2.f, worldView.getSize()
+    );
+
+    const float borderDistance = 40.f;
+
+    sf::Vector2f position = playerAircraft->getPosition();
+    // Can't move left of the screen
+    position.x = std::max(position.x, viewBounds.left + borderDistance);
+    // Can't move right of the screen
+    position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
+    // Can't move top of the screen
+    position.y = std::max(position.y, viewBounds.top + borderDistance);
+    // Can't move bottom of the screen
+    position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
+
+    playerAircraft->setPosition(position);
 }
