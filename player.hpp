@@ -7,12 +7,32 @@
 
 
 #include <SFML/Window/Event.hpp>
+#include <map>
 #include "command_queue.hpp"
 
 class Player {
     public:
+        enum class Action {
+            MoveLeft,
+            MoveRight,
+            MoveUp,
+            MoveDown
+        };
+        Player();
+
+        void assignKey(Action action, sf::Keyboard::Key key);
+        sf::Keyboard::Key getAssignedKey(Action action) const;
+
         void handleEvent(const sf::Event& event, CommandQueue& commands);
         void handleRealTimeInput(CommandQueue &commands);
+
+    private:
+        std::map<sf::Keyboard::Key, Action> keyBinding;
+        std::map<Action, Command> actionBinding;
+
+        void initializeKeyBindings();
+        void initializeActions();
+        static bool isRealtimeAction(Action action);
 };
 
 

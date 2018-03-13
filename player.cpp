@@ -18,6 +18,14 @@ struct AircraftMover {
     }
 };
 
+Player::Player() {
+    // Set initial key bindings
+    initializeKeyBindings();
+
+    // Set initial action bindings
+    initializeActions();
+}
+
 void Player::handleEvent(const sf::Event &event, CommandQueue &commands) {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) {
         Command output;
@@ -31,30 +39,57 @@ void Player::handleEvent(const sf::Event &event, CommandQueue &commands) {
 }
 
 void Player::handleRealTimeInput(CommandQueue& commands) {
-    const float playerSpeed = 30.f;
+    for (const auto binding : keyBinding) {
+        if (sf::Keyboard::isKeyPressed(binding.first) && isRealtimeAction(binding.second)) {
+            commands.push(actionBinding[binding.second]);
+        }
+    }
+}
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        Command moveLeft;
-        moveLeft.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
-        moveLeft.action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
-        commands.push(moveLeft);
+void Player::initializeKeyBindings() {
+    keyBinding[sf::Keyboard::Left] = Action::MoveLeft;
+    keyBinding[sf::Keyboard::Right] = Action::MoveRight;
+    keyBinding[sf::Keyboard::Up] = Action::MoveUp;
+    keyBinding[sf::Keyboard::Down] = Action::MoveDown;
+}
+
+void Player::initializeActions() {
+    const float playerSpeed = 200.f;
+
+    actionBinding[Action::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
+    actionBinding[Action::MoveRight].action = derivedAction<Aircraft>(AircraftMover(+playerSpeed, 0.f));
+    actionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
+    actionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, +playerSpeed));
+}
+
+bool Player::isRealtimeAction(Player::Action action) {
+    switch (action) {
+        case Action::MoveLeft:
+        case Action::MoveRight:
+        case Action::MoveUp:
+        case Action::MoveDown:
+            return true;
+        default:
+            return false;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        Command moveRight;
-        moveRight.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
-        moveRight.action = derivedAction<Aircraft>(AircraftMover(playerSpeed, 0.f));
-        commands.push(moveRight);
+}
+
+void Player::assignKey(Player::Action action, sf::Keyboard::Key key) {
+    // Remove all the keys that already map the action
+    for (const auto binding : keyBinding) {
+        if (binding.second == action) {
+            keyBinding.erase(binding.first);
+        }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        Command moveUp;
-        moveUp.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
-        moveUp.action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
-        commands.push(moveUp);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        Command moveDown;
-        moveDown.category = static_cast<unsigned int>(Category::Type::PlayerAircraft);
-        moveDown.action = derivedAction<Aircraft>(AircraftMover(0.f, playerSpeed));
-        commands.push(moveDown);
+
+    // Insert new binding
+    keyBinding[key] = action;
+}
+
+sf::Keyboard::Key Player::getAssignedKey(Player::Action action) const {
+    for (const auto binding : keyBinding) {
+        if (binding.second == action) {
+            return binding.first;
+        }
     }
 }
