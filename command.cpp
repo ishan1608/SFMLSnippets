@@ -3,10 +3,10 @@
 //
 
 #include "command.hpp"
+#include "category.hpp"
 
 
 Command::Command()
 : action()
-, category() {
-
+, category(static_cast<unsigned int>(Category::Type::None)) {
 }

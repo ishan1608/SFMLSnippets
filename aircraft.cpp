@@ -12,6 +12,8 @@ Textures::ID toTextureID(Aircraft::Type type) {
             return Textures::ID::Eagle;
         case Aircraft::Type::Raptor:
             return Textures::ID::Raptor;
+        default:
+            return Textures::ID::Eagle;
     }
 }
 
@@ -33,5 +35,4 @@ unsigned int Aircraft::getCategory() const {
         default:
             return static_cast<unsigned int>(Category::Type::EnemyAircraft);
     }
-    return SceneNode::getCategory();
 }

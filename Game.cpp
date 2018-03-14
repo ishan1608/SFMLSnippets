@@ -9,7 +9,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-: window(sf::VideoMode(640, 480), "Shoot-em-up")
+: window(sf::VideoMode(640, 480), "Shoot-em-up", sf::Style::Close)
 , world(window)
 , player()
 , font()
@@ -17,6 +17,9 @@ Game::Game()
 , statisticsUpdateTime()
 , statisticsNumFrames(0)
 {
+    // Disable key-repeat
+    window.setKeyRepeatEnabled(false);
+
     font.loadFromFile("media/sansation.ttf");
     statisticsText.setFont(font);
     statisticsText.setPosition(5.f, 5.f);
@@ -51,20 +54,6 @@ void Game::processInput() {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
-
-//        switch (event.type) {
-//            case sf::Event::KeyPressed:
-//                handlePlayerInput(event.key.code, true);
-//                break;
-//            case sf::Event::KeyReleased:
-//                handlePlayerInput(event.key.code, false);
-//                break;
-//            case sf::Event::Closed:
-//                window.close();
-//                break;
-//            default:
-//                break;
-//        }
     }
 
     player.handleRealTimeInput(commands);
@@ -82,9 +71,6 @@ void Game::render() {
     window.draw(statisticsText);
     window.display();
 }
-
-//void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-//}
 
 void Game::updateStatistics(sf::Time elapsedTime) {
     statisticsUpdateTime += elapsedTime;

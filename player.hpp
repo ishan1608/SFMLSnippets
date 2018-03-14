@@ -20,11 +20,11 @@ class Player {
         };
         Player();
 
-        void assignKey(Action action, sf::Keyboard::Key key);
-        sf::Keyboard::Key getAssignedKey(Action action) const;
-
         void handleEvent(const sf::Event& event, CommandQueue& commands);
         void handleRealTimeInput(CommandQueue &commands);
+
+        void assignKey(Action action, sf::Keyboard::Key key);
+        sf::Keyboard::Key getAssignedKey(Action action) const;
 
     private:
         std::map<sf::Keyboard::Key, Action> keyBinding;

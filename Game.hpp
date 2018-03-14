@@ -18,7 +18,7 @@ class Game {
 
     private:
         void processInput();
-        void update(sf::Time);
+        void update(sf::Time elapsedTime);
         void render();
         void updateStatistics(sf::Time elapsedTime);
 

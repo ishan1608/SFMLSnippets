@@ -22,7 +22,7 @@ class Entity : public SceneNode {
     private:
         sf::Vector2f velocity;
 
-    void updateCurrent(sf::Time dt);
+        void updateCurrent(sf::Time dt) override;
 };
 
 
